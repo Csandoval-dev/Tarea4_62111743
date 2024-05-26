@@ -1,5 +1,3 @@
-from collections import deque
-
 class Usuario:
     def __init__(self, id_usuario, nombre):
         self.id_usuario = id_usuario
@@ -10,7 +8,8 @@ class Usuario:
 
 class ColaAtencion:
     def __init__(self):
-        self.cola = deque()
+        self.cola = []
+        self.atendidos = []
 
     def ingresar_usuario(self, usuario):
         self.cola.append(usuario)
@@ -18,14 +17,20 @@ class ColaAtencion:
 
     def atender_usuario(self):
         if self.cola:
-            usuario = self.cola.popleft()
+            usuario = self.cola.pop(0)
+            self.atendidos.append(usuario)
             print(f"Atendiendo a {usuario}")
-            return usuario
         else:
             print("No hay usuarios en la cola para atender.")
-            return None
 
     def mostrar_cola(self):
+        if self.atendidos:
+            print("Usuarios atendidos:")
+            for usuario in self.atendidos:
+                print(usuario)
+        else:
+            print("No hay usuarios atendidos.")
+        
         if self.cola:
             print("Usuarios en espera:")
             for usuario in self.cola:
